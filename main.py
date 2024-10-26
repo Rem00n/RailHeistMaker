@@ -11,7 +11,7 @@ prevLmouseclicked, Lmouseclicked = 0,0
 prevRmouseclicked, Rmouseclicked = 0,0
 prevMmouseclicked, Mmouseclicked = 0,0
 
-CLR_BG = "#4C0000"
+
 CLR_EMPTY = "#000000"
 CLR_BTXT = "#FFFFFF"
 DIM_BLK = 20
@@ -22,6 +22,7 @@ fontL = pygame.font.SysFont("Arial", round(DIM_BLK*2))
 fontS = pygame.font.SysFont("Arial", round(DIM_BLK*0.8))
 numericalButtons = [pygame.K_1,pygame.K_2,pygame.K_3,pygame.K_4,pygame.K_5,pygame.K_6,pygame.K_7,pygame.K_8,pygame.K_9,pygame.K_0,pygame.K_KP1,pygame.K_KP2,pygame.K_KP3,pygame.K_KP4,pygame.K_KP5,pygame.K_KP6,pygame.K_KP7,pygame.K_KP8,pygame.K_KP9,pygame.K_KP0]
 
+clock = pygame.time.Clock()
 
 
 
@@ -31,19 +32,9 @@ selectedLevel = 0
 
 ValidChars = ['x', 'y', 'z', '^', 'w', 'M', '=', '~', '|', '0', '@', 'T', 'P', 'L','H', '-', '+', '8', 'E', 'R', 'B', 'C', 'D', 'I', 'G', 'A', '>', '<', 'K', 'N', 'X', '?', '1', '2', '3', '4', '5', '6', '7', 'Y', 'W', 'V', '$', '%', '&', ':', '*', '!', 'S', 'F', '{', ']', '[', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v']
 
-c1 = '#340058'
-c2 = '#000000'
-c3 = '#4C0000'
-
-# Global phase shift variables
-phase_shift_1 = 0
-phase_shift_2 = 100
-
-# Create a clock object to track time
-clock = pygame.time.Clock()
-
-phase_shift_1 = 0
-phase_shift_2 = 100
+BGC1 = '#340058'
+BGC2 = '#000000'
+BGC3 = '#4C0000'
 
 
 def sine_wave(y_offset, amplitude, frequency, phase_shift, surface, color):
@@ -62,22 +53,9 @@ def create_wave_surface(phase_shift, color, amplitude, frequency,h):
     sine_wave(HEIGHT * 0.35+h, amplitude, frequency, phase_shift, surface, color)
     return surface
 
-
-amplitude = HEIGHT *0.06
-frequency = 2 * math.pi / WIDTH * 2
-wave_surface_1 = create_wave_surface(phase_shift_1, c2, amplitude, frequency,0)
-wave_surface_2 = create_wave_surface(phase_shift_2, c3, amplitude*0.5, frequency,230)
-
-
-offset_x_1 = 0
-offset_x_2 = 0
-speed_x_1 = 50  
-speed_x_2 = 150  
-
-
 def drawBackground():
     global offset_x_1, offset_x_2
-    screen.fill(c1)
+    screen.fill(BGC1)
     delta_time = clock.tick(240) / 1000
     offset_x_1 -= speed_x_1 * delta_time
     if offset_x_1 <= -WIDTH:
@@ -88,6 +66,25 @@ def drawBackground():
     screen.blit(wave_surface_1, (offset_x_1, 0))
     screen.blit(wave_surface_2, (offset_x_2, 0))
     
+
+
+
+
+phase_shift_1 = 0
+phase_shift_2 = 100
+
+
+amplitude = HEIGHT *0.06
+frequency = 2 * math.pi / WIDTH * 2
+wave_surface_1 = create_wave_surface(phase_shift_1, BGC2, amplitude, frequency,0)
+wave_surface_2 = create_wave_surface(phase_shift_2, BGC3, amplitude*0.5, frequency,230)
+
+
+offset_x_1 = 0
+offset_x_2 = 0
+speed_x_1 = 50  
+speed_x_2 = 150  
+
 
 
 sampleTrain = []
@@ -193,8 +190,7 @@ blocksInfo = {
 }
 
 
-def drawText(text,x,y):
-	screen.blit(font.render(text, True, CLR_BTXT), (OFF_X + x*DIM_BLK, OFF_Y + y*DIM_BLK))
+
 
 
 
@@ -216,11 +212,11 @@ def drawLadderStep(x,y):
 	pygame.draw.rect(screen, '#4430BA', (OFF_X + x*DIM_BLK, OFF_Y + y*DIM_BLK+DIM_BLK*0, DIM_BLK, DIM_BLK*0.1))
 	pygame.draw.rect(screen, '#4430BA', (OFF_X + x*DIM_BLK, OFF_Y + y*DIM_BLK+DIM_BLK*0.33, DIM_BLK, DIM_BLK*0.1))
 	pygame.draw.rect(screen, '#4430BA', (OFF_X + x*DIM_BLK, OFF_Y + y*DIM_BLK+DIM_BLK*0.67, DIM_BLK, DIM_BLK*0.1))
-	
 def drawLadder(x,y):
 	drawLadderStep(x,y)
 	drawLadderStep(x,y+1)
 	drawLadderStep(x,y+2)
+	drawLadderStep(x,y+3)
 def drawLadderTop(x,y):
 	drawJumpThru(x,y)
 	drawLadderStep(x,y)
@@ -311,11 +307,10 @@ def drawMaria(x,y):
 	drawMan(x,y,'#006AB4','#8A6042','#FEB854',0)
 
 
-def drawThang(block,x,y):
+def drawBlock(block,x,y):
 	if block == " ":
 		#pygame.draw.rect(screen, CLR_EMPTY, (OFF_X + x*DIM_BLK, OFF_Y + y*DIM_BLK, DIM_BLK, DIM_BLK))
 		pass
-		
 	elif block == "=" or block == "~":
 		drawFloor(x,y)
 	elif block == "|" or block == "~":
@@ -385,7 +380,7 @@ def drawThang(block,x,y):
 	else:
 		pygame.draw.rect(screen, '#444444', (OFF_X + x*DIM_BLK, OFF_Y + y*DIM_BLK, DIM_BLK, DIM_BLK))				
 	if showText:
-		drawText(block,x,y)	
+		screen.blit(font.render(block, True, CLR_BTXT), (OFF_X + x*DIM_BLK, OFF_Y + y*DIM_BLK))
 
 
 SETTINGSPATH = os.getcwd()+'/settings'
@@ -469,7 +464,7 @@ def loadMissionIntoEditor(new=0):
 	else:
 		MissionPath = promptFileSelect('Select Mission',os.getcwd())
 		if MissionPath==None:
-			return
+			return 1
 		with open(MissionPath,'r') as f:
 			content = f.readlines()
 		Trains = []
@@ -525,7 +520,7 @@ def loadMissionIntoEditor(new=0):
 		elem.refresh() #refreshing the text
 
 	setRunningScreen(1)
-
+	return 0
 
 
 selectedLevelInFile = [0]
@@ -688,6 +683,8 @@ def insertMissionToGame(missionName,missionPositon=0,replace=True):
 
 
 	if replace:
+		if missionPositon+1>=len(levelsStartLines):
+			missionPositon = len(levelsStartLines)-2
 		line_number = levelsStartLines[missionPositon]
 		nextline_number = levelsStartLines[missionPositon+1]		
 		modified_content = target_content[:max(line_number,0)] + source_content + target_content[max(nextline_number,0):]
@@ -920,8 +917,11 @@ def setRunningScreen(n):
 
 def loadAndInsert():
 	getMissionsNames()
-	loadMissionIntoEditor()
+	x = loadMissionIntoEditor()
 	setRunningScreen(0)
+	if x: ##user cancelled file selection
+		return 
+	
 	replaceOrInsertButton.num=0
 	if quickInsertPositionButton.num==0:
 		selectedLevelInFile[0] = 0
@@ -1180,7 +1180,7 @@ while True:
 		pygame.draw.rect(screen, '#000010', (OFF_X , OFF_Y, DIM_BLK*48, DIM_BLK*18))
 		for y,row in enumerate(Trains[TrainIndex[0]]):
 			for x,block in enumerate(row):
-				drawThang(block,x,y)
+				drawBlock(block,x,y)
 
 
 		
@@ -1206,7 +1206,7 @@ while True:
 			selectedCharValid=True
 			screen.blit(font.render(selectedChar,True,'#00FF00'),(100,HEIGHT-70))
 			t1 = posToInds((20,HEIGHT-30))
-			drawThang(selectedChar,t1[0],t1[1])
+			drawBlock(selectedChar,t1[0],t1[1])
 		else:
 			screen.blit(font.render(selectedChar,True,'#FF0000'),(100,HEIGHT-70))
 		
@@ -1248,7 +1248,7 @@ while True:
 		# bx,by=600,30
 		# for block in ValidChars:
 		# 	t1 = posToInds((bx,by))
-		# 	drawThang(block,t1[0],t1[1])
+		# 	drawBlock(block,t1[0],t1[1])
 		# 	by += 40
 		# 	if by>30*16:
 		# 		by=30
@@ -1259,7 +1259,7 @@ while True:
 		pygame.draw.rect(screen, '#000010', (OFF_X , OFF_Y, DIM_BLK*48, DIM_BLK*18))
 		for y,row in enumerate(blocksSelectingTrain):
 			for x,block in enumerate(row):
-				drawThang(block,x,y)
+				drawBlock(block,x,y)
 
 
 		pygame.draw.rect(screen, (0,0,0), (0, HEIGHT-100, WIDTH, 100)) #bottom bar
@@ -1278,7 +1278,7 @@ while True:
 		if selectedChar in ValidChars:
 			selectedCharValid=True
 			t1 = posToInds((20,HEIGHT-30))
-			drawThang(selectedChar,t1[0],t1[1])
+			drawBlock(selectedChar,t1[0],t1[1])
 
 		
 
