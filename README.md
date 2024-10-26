@@ -16,13 +16,14 @@ Before anything else the tool makes a backup of ufo 50's "data.win" file since i
 - to insert the level click 'inject into game' button, specify where do you want it, then click 'inject'. you can look at the associated cmd window to follow the insertion process if you want. unfortunately this operation takes about a minute everytime so you may want to have some bushido ball or something to play while waiting
 - if you want to quickly inject a level without editing/viewing use the 'load & inject' button from menu
 
-
 ### problems and solutions:
 - sometimes a very bad level inserted into the game can break it, idk what really causes this but the fix is to restore data.win from backup and rerun the setup from menu
 - inserting levels before last level removes the win state of levels at the end to prevent this only insert levels after the last level or just replace existing levels
 
-### thanks
-- to UndertaleModTool team for their gamechanging tool
+### credits
+- mossmouth and associates for Rail Heist 
+- UndertaleModTool team for their gamechanging tool
+ 
 
 ### support
 - create and share levels!
