@@ -19,7 +19,7 @@ Before anything else the tool makes a backup of ufo 50's "data.win" file since i
 - **if you only want to insert a level without editing/viewing it use the 'load & insert' button from menu.**
 
 ### known issues:
-- sometimes an intentionally horrible level inserted into the game, or an interruption during an insertion process can corrupt data.win, the fix is to restore data.win from backup and rerun the setup from menu
+- sometimes an intentionally horrible level inserted into the game, or an interruption during an insertion process can corrupt data.win, the fix is to restore data.win from backup, run rail heist at least once then close, then rerun the setup from menu
 - inserting levels messes with the win states of other levels at the end to prevent this only insert levels after the last level or just replace existing levels
   
 ### building:
