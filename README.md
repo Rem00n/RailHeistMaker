@@ -18,7 +18,7 @@ Before anything else the tool makes a backup of ufo 50's "data.win" file since i
 - to insert the currently loaded level click the 'insert into game' button, where do you want it, then click 'insert'. you can look at the associated cmd window to follow the insertion process if you want. unfortunately this operation takes about a minute everytime so you may want to have some bushido ball or something to play while waiting
 - **if you only want to insert a level without editing/viewing it use the 'load & insert' button from menu.**
 
-### problems and solutions:
+### known issues:
 - sometimes an intentionally horrible level inserted into the game, or an interruption during an insertion process can corrupt data.win, the fix is to restore data.win from backup and rerun the setup from menu
 - inserting levels messes with the win states of other levels at the end to prevent this only insert levels after the last level or just replace existing levels
 
