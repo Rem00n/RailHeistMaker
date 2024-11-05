@@ -500,7 +500,7 @@ def insertMissionToGame(missionName,missionPositon=0,replace=True):
 	levelsStartLines = [8]
 	
 	target_file = str(GAMECODEFILE)
-	source_file = os.getcwd()+f'/missions/{missionName}.txt'
+	source_file = os.getcwd()+f'/missions/{cleanStringForWindowsFileName(missionName)}.txt'
 	with open(target_file, 'r') as gf:
 		prevValidLineInd = -1
 		prevValidLineNum = -1		
